@@ -48,8 +48,34 @@
     
     обеспечено логирование в отдельные файлы (file.log и celery.log)
     
+# Схема URL проекта
+http://0.0.0.0:8000/ - основная страница
+
+http://0.0.0.0:8000/deliveries/ - рассылки
+
+http://0.0.0.0:8000/clients/ - клиенты
+
+http://0.0.0.0:8000/messages/ - сообщения
+
+http://0.0.0.0:8000/deliveries/get_general_statistic - общая статистика
+
+http://0.0.0.0:8000/deliveries/<pk>/get_detail_statistic/ - детальная статистик
+
+http://0.0.0.0:8000/docs/ - документация
+
     
-# Порядок запуска
+# Порядок запуска (требуется установленный docker)
+1. Склонировать репозиторий
+2. Выполнить запуск контейнеров (docker-compose up)
+
+# Порядок запуска без docker (требуется установленная postgresql и Redis)
 1. Склонировать репозиторий
 2. Создать файл .env, где указать url внешнего сервиса и token (переменные URL и TOKEN)
-3. Выполнить запуск контейнеров (docker-compose up)
+3. Установить и активировать виртуальную среду (python venv)
+4. Установить зависимости из файла requirements.txt
+5. Внести изменения в файл settings.py в части используемой базы данных (при необходимости)
+6. Выполнить миграции (python manage.py makemigrations и python manage.py migrate)
+7. Запустить сервер python manage.py runserver
+8. Запустить Celery (celery -A mailingapi worker -l info)
+9. Запустить Redis
+
